@@ -37,9 +37,9 @@ Feature request, bug reports, etc, should all be opened as GitHub tickets. An an
 Current Build Statuses For STIGS
 --------------------------------
 
-    OS   |     Repo     |     Status
---------------------------------------
-RedHat 6 |   Repo [0]   |    BUILD/FAIL icon
+|    OS    |     Repo     |     Status      | 
+| ---------|--------------|------------------
+| RedHat 6 |   Repo [0]   | BUILD/FAIL icon |
 
 
 
