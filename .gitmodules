@@ -1,0 +1,3 @@
+[submodule "ansible-role-stig"]
+	path = ansible-role-stig
+	url = git@github.com:nousdefions/ansible-role-stig.git
