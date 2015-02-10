@@ -1,0 +1,6 @@
+---
+- { include: prelim.yml, tags: ['prelim_tasks' , 'test'] }
+- { include: cat1.yml, when: rhel6stig_cat1 }
+- { include: cat2.yml, when: rhel6stig_cat2 }
+- { include: cat3.yml, when: rhel6stig_cat3 }
+- { include: post.yml, tags: ['post_tasks' , 'test'] }
