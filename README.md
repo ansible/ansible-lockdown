@@ -1,8 +1,6 @@
 ansible-lockdown
 ----------------
 
-[TOC]
-
 ## Intro
 
 This is intended to serve a centralized repo utilizing submodules that point to STIG and CIS repositories. Each individual STIG and CIS repo is intended to be available via Ansible Galaxy.
