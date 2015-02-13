@@ -37,7 +37,7 @@ Current Build Statuses For STIGS
 
 |    OS    |     Repo     |         Status          | 
 | ---------|--------------|--------------------------
-| RedHat 6 |   [Repo] [0] | [![STATUS][rhel6status] |
+| RedHat 6 |   [Repo] [0] | ![STATUS][rhel6status] |
 
 
 [0]:https://github.com/nousdefions/ansible-role-stig
