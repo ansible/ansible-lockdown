@@ -35,11 +35,12 @@ Feature request, bug reports, etc, should all be opened as GitHub tickets. An an
 Current Build Statuses For STIGS
 --------------------------------
 
-|    OS    |     Repo     |     Status      | 
-| ---------|--------------|------------------
-| RedHat 6 |   [Repo] [0]   | [![Build Status](https://drone.io/github.com/nousdefions/ansible-role-stig/status.png)](https://drone.io/github.com/nousdefions/ansible-role-stig/latest) |
+|    OS    |     Repo     |         Status          | 
+| ---------|--------------|--------------------------
+| RedHat 6 |   [Repo] [0] | [![STATUS][rhel6status] |
 
 
 [0]:https://github.com/nousdefions/ansible-role-stig
+[rhel6status]:https://codeship.com/projects/6ff25160-95b3-0132-d4fc-466960a0e7d2/status?branch=master
 [DISA]:http://iase.disa.mil/stigs/Pages/index.aspx
 [CIS]:https://benchmarks.cisecurity.org

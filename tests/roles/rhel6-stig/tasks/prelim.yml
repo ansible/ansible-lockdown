@@ -1,0 +1,91 @@
+---
+# Prelimi|ary tasks that should always be run
+- name: PRELIM | Check for /etc/snmp/snmpd.conf
+  stat: path=/etc/snmp/snmpd.conf
+  register: snmpconf_test
+  always_run: yes
+  tags: [ 'cat1' , 'cat2' , 'cat3' , 'V-38653' , 'snmp' ]
+
+# Setup variables based on operating system
+- name: PRELIM | Set gpg_key_url for CentOS
+  set_fact: gpg_key_url=http://mirror.centos.org/centos/RPM-GPG-KEY-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}
+  when: "ansible_distribution == 'CentOS'"
+  always_run: yes
+  tags: [ 'cat1' , 'cat2' , 'cat3' ]
+
+- name: PRELIM | Set gpg_key_url for Red Hat 6
+  set_fact: gpg_key_url=https://www.redhat.com/security/fd431d51.txt
+  when: "ansible_distribution == 'Red Hat'"
+  always_run: yes
+  tags: [ 'cat1' , 'cat2' , 'cat3' ]
+
+# List users in order to look files inside each home directory
+- name: PRELIM | List users accounts
+  command: "awk -F: '{print $1}' /etc/passwd"
+  register: users
+  changed_when: false
+  always_run: yes
+  tags: [ 'cat1' , 'cat2' , 'cat3' ]
+
+- name: PRELIM | List system accounts
+  shell: "grep -Ev '/home|root' /etc/passwd | cut -d : -f 1"
+  register: system_users
+  changed_when: false
+  always_run: yes
+  tags: [ 'cat1' , 'cat2' , 'cat3' ]
+
+
+# Get separate lists of SysV and xinetd services
+- name: PRELIM | List SysV services
+  shell: "chkconfig --list | sed '/^$/ d ; /xinetd based services:/ d ; /^\t/ d' | awk '{print $1}'"
+  register: sysv_services
+  changed_when: false
+  always_run: yes
+  tags: [ 'cat1' , 'cat2' , 'cat3' ]
+
+- name: PRELIM | List xinetd services
+  shell: "chkconfig --list | sed -n '/^\t/,$p' | sed 's/\t//' | cut -d : -f 1"
+  register: xinetd_services
+  changed_when: false
+  always_run: yes
+  tags: [ 'cat1' , 'cat2' , 'cat3' ]
+
+
+# See if IPv6 is enabled and set a fact
+- name: PRELIM | Check if IPv6 is enabled
+  shell: ip addr | grep inet6
+  changed_when: false
+  failed_when: false
+  register: rhel6stig_ipv6test
+  ignore_errors: yes
+  always_run: yes
+  tags: [ 'ipv6' ]
+
+- name: PRELIM | Set ipv6_in_use to 'true'
+  set_fact: ipv6_in_use=true
+  when: rhel6stig_ipv6test.stdout
+  always_run: yes
+  tags: [ 'ipv6' ]
+
+# Get list of shells
+- name: PRELIM | Get list of shells on system
+  shell: grep -Pv "/(sh|nologin|dash)" /etc/shells | sed -r 's#/((bin|sbin|usr)/)+##'
+  register: shells
+  changed_when: false
+  always_run: yes
+  tags: [ 'umask' ]
+
+- name: PRELIM | Verify all rpm packages and store output in /tmp/rhel6stig_rpm_verify
+  shell: rpm -Va > /tmp/rhel6stig_rpm_verify
+  changed_when: false
+  failed_when: false
+  when: rhel6stig_cat3
+  tags: [ 'rpm' ]
+
+- name: PRELIM | Check for device files with unlabeled_t context
+  shell: ls -RZ /dev | grep unlabeled_t
+  register: rhel6stig_dev_unlabeled_context
+  changed_when: false
+  failed_when: false
+  when: rhel6stig_cat3
+  tags: [ 'selinux' ]

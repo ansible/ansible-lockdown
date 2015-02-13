@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Sam Doran
+  description:
+  company: ""
+  license: MIT
+  min_ansible_version: 1.6
+
+  platforms:
+  - name: EL
+    versions:
+      - 6
+
+  categories:
+    - system
+
+dependencies: []
+version: 1.0

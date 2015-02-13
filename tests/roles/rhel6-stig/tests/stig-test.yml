@@ -1,0 +1,53 @@
+---
+- name: Test STIG Implementation
+  hosts: rhel6-test
+  sudo: yes
+  gather_facts: no
+
+  vars:
+     profile: "MAC-1_Public"
+     cpe: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark-cpe-dictionary.xml"
+     scap_url: "http://iase.disa.mil/stigs/Documents/U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark.zip"
+     scap_prefix: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark"
+     high_pct: 90
+     med_pct: 50
+     low_pct: 24
+     tot_pct: 44
+
+  tasks:
+
+     - name: Download EPEL
+       get_url: url="http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm" dest=/tmp/
+
+     - name: Install EPEL OpenSCAP and Pip
+       yum: name={{ item }} state=present
+       with_items:
+         - /tmp/epel-release-6-8.noarch.rpm
+         - openscap-utils
+         - python-pip
+
+     - name: Install Python Libraries
+       pip: name={{ item }} state=present
+       with_items:
+         - untangle
+         - tabulate
+
+     - name: Download RHEL6 STIG files for OSCAP
+       get_url: url={{ scap_url }} dest=/tmp/
+
+     - name: Unzip file
+       command: unzip -o {{ scap_url | basename }}
+       args:
+         chdir: /tmp/
+
+     - name: Run OpenScap Checks
+       shell: oscap xccdf eval --profile {{ profile }} --results results.xml --cpe {{ scap_prefix }}-cpe-dictionary.xml {{ scap_prefix }}-xccdf.xml > /dev/null 2>&1
+       args:
+         chdir: /tmp/
+       register: results
+       ignore_errors: yes
+
+     - name: Run Stigma
+       script: ./stigma -P /tmp/results.xml -H {{ high_pct }} -M {{ med_pct }} -L {{ low_pct }} -T {{ tot_pct }}
+       args:
+         chdir: /tmp/ 

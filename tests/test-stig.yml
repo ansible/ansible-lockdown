@@ -1,0 +1,4 @@
+---
+- hosts: "{{ test_target }}"
+  roles:
+    - "{{ stig_role }}"

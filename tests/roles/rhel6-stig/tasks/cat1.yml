@@ -1,0 +1,152 @@
+---
+# CAT I Findings
+- name: V-38653 High  The snmpd service must not use a default password
+  replace: backup=yes dest=/etc/snmp/snmpd.conf regexp=(^com2sec.*default\s+)public replace=\1{{ rhel6stig_snmp_community }}
+  ignore_errors: yes
+  when: snmpconf_test.stat.exists
+  notify: restart snmpd
+  tags: [ 'cat1' , 'V-38653' , 'snmp' ]
+
+- name: V-38491 High  There must be no hosts.equiv file on the system
+  file: state=absent dest=/etc/hosts.equiv
+  tags: [ 'cat1' , 'V-38491' , 'hosts_equiv' ]
+
+- name: V-38491 High  There must be no .rhosts files on the system
+  file: state=absent dest=~{{ item }}/.rhosts
+  with_items: users.stdout_lines
+  tags: [ 'cat1' , 'V-38491' , 'rhosts' ]
+
+
+- name: Looking for the presence of a DoD-approved virus scan program
+  shell: grep uvscan /etc/cron* /var/spool/cron/*
+  register: av_present
+  changed_when: false
+  failed_when: "'FAIL' in av_present.stderr"
+  tags: [ 'cat1' , 'V-38666', 'antivirus' ]
+
+- name: V-38666 High  The system must use and update a DoD-approved virus scan program
+  pause: prompt="No AV software present. Press ENTER to continue"
+  when: av_present.rc != 0 and not rhel6stig_fullauto
+  tags: [ 'cat1' , 'V-38666' , 'antivirus' ]
+
+
+- name: Looking for virus definitions older than seven days
+  command: find /usr/local/uvscan -type f -mtime +7
+  register: av_defs
+  changed_when: false
+  failed_when: '"FAIL" in av_defs.stderr'
+  tags: [ 'cat1' , 'V-38666' , 'antivirus' ]
+
+- name: V-38666 High  The system must use and update a DoD-approved virus scan program
+  pause: prompt="AV definitions are outdated. Press ENTER to continue"
+  when: av_defs.stdout_lines and not rhel6stig_fullauto
+  tags: [ 'cat1' , 'V-38666' , 'antivirus' ]
+
+- name: V-38666 High  The system must use and update a DoD-approved virus scan program
+  pause: prompt="No AV definitions found in /usr/local/uvscan. Press ENTER to continue"
+  when: av_defs.stderr and not rhel6stig_fullauto
+  tags: [ 'cat1' , 'V-38666' , 'antivirus' ]
+
+
+- name: V-38668 High  The x86 Ctrl-Alt-Delete key sequence must be disabled
+  copy: src=control-alt-delete.override dest=/etc/init/control-alt-delete.override owner=root group=root mode=0644
+  tags: [ 'cat1' , 'V-38668' , 'ctrl_alt_delete' ]
+
+- name: V-38462 High  The RPM package management tool must cryptographically verify the authenticity of all software packages during installation
+  lineinfile: state=absent dest={{ item }} regexp=nosignature
+  with_items:
+    - /etc/rpmrc
+    - /usr/lib/rpm/rpmrc
+    - /usr/lib/rpm/redhat/rpmrc
+    - ~root/.rpmrc
+  tags: [ 'cat1' , 'V-38462' , 'rpm' , 'packages' ]
+
+- name: V-38497 High  The system must not have accounts configured with blank or null passwords
+  template: src=system-auth-ac.j2 dest=/etc/pam.d/system-auth-ac owner=root group=root mode=0640 backup=yes
+  tags: [ 'cat1' , 'V-38497' , 'passwords' ]
+
+- name: V-38677 High  The NFS server must not have the insecure file locking option enabled
+  replace: dest=/etc/exports regexp='insecure_locks'
+  tags: [ 'cat1' , 'V-38677' , 'nfs' ]
+
+- name: V-38476 High  Vendor-provided cryptographic certificates must be installed to verify the integrity of system software.
+  rpm_key: state=present key={{ gpg_key_url }}
+  tags: [ 'cat1' , 'V-38476' , 'rpm' ]
+
+- name: V-38607 High  The SSH daemon must be configured to use only the SSHv2 protocol
+  lineinfile: state=present dest=/etc/ssh/sshd_config regexp='^(#)?Protocol \d' line='Protocol 2'
+  notify: restart ssh
+  tags: [ 'ssh' , 'cat1' , 'V-38607' , 'ssh' ]
+
+
+- name: Check status of rsh
+  shell: chkconfig --list | grep rsh
+  register: rsh_status
+  changed_when: false
+  when: "'rsh' in xinetd_services.stdout_lines"
+  tags: [ 'cat1' , 'V-38602' , 'V-38594' , 'rsh' , 'rlogin', 'unsecure_services' ]
+
+- name: "V-38594 High  The rshd service must not be running"
+  command: chkconfig rsh off
+  when: "'rsh' in xinetd_services.stdout_lines and rsh_status.stdout.find('\toff') == -1"
+  tags: [ 'cat1' , 'V-38594' , 'rsh' , 'unsecure_services' ]
+
+
+- name: Check status of rlogin
+  shell: chkconfig --list | grep rlogin
+  register: rlogin_status
+  changed_when: false
+  when: "'rlogin' in xinetd_services.stdout_lines"
+  tags: [ 'cat1' , 'V-38602' , 'rlogin', 'unsecure_services' ]
+
+- name: "V-38602 High  The rlogind service must not be running"
+  command: chkconfig rlogin off
+  when: "'rlogin' in xinetd_services.stdout_lines and rlogin_status.stdout.find('\toff') == -1"
+  tags: [ 'cat1' , 'V-38602' , 'rlogin', 'unsecure_services' ]
+
+
+- name: Check status of rexec
+  shell: chkconfig --list | grep rexec
+  register: rexec_status
+  changed_when: false
+  when: "'rexec' in xinetd_services.stdout_lines"
+  tags: [ 'cat1' , 'V-38598' , 'rexec', 'unsecure_services' ]
+
+- name: V-38598 High  The rexecd service must not be running
+  command: chkconfig rexec off
+  when: "'rexec' in xinetd_services.stdout_lines and rexec_status.stdout.find('\toff') == -1"
+  tags: [ 'cat1' , 'V-38598' , 'rexec', 'unsecure_services' ]
+
+
+- name: Check status of telnet
+  shell: chkconfig --list | grep telnet
+  register: telnet_status
+  changed_when: false
+  when: "'telnet' in xinetd_services.stdout_lines"
+  tags: [ 'cat1' , 'V-38589' , 'telnet' , 'unsecure_services' ]
+
+- name: "V-38589 High  The telnet daemon must not be running"
+  command: chkconfig telnet off
+  when: "'telnet' in xinetd_services.stdout_lines and telnet_status.stdout.find('\toff') == -1"
+  tags: [ 'cat1' , 'V-38589' , 'telnet' , 'unsecure_services' ]
+
+
+- name: V-38591 High  The rsh-server package must not be installed
+  yum: name=rsh-server state=absent
+  tags: [ 'cat1' , 'V-38591' , 'rsh', 'unsecure_services' ]
+
+- name: V-38587 High  The telnet-server package must not be installed
+  yum: name=telnet-server state=absent
+  tags: [ 'cat1' , 'V-38587' , 'telnet', 'unsecure_services' ]
+
+- name: V-38701 High  The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system
+  lineinfile: "state=present backup=yes dest=/etc/xinetd.d/tftp regexp='server_args\\s+=\\s+(/.*$)' line='\tserver_args\t\t= -s \\1' backrefs=yes"
+  when: "rhel6stig_tftp_required and 'tftp' in xinetd_services.stdout_lines"
+  ignore_errors: yes
+  tags: [ 'cat1' , 'V-38701' , 'tftp' , 'tftp-server' , 'unsecure_services' ]
+  notify: reload xinetd
+
+- name: V-38614 High  The SSH daemon must not allow authentication using an empty password
+  lineinfile: state=present dest=/etc/ssh/sshd_config regexp='^(#)?PermitEmptyPasswords' line='PermitEmptyPasswords no'
+  tags: [ 'ssh' , 'cat1' , 'V-38614' , 'ssh' ]
+  notify: restart ssh

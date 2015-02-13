@@ -1,0 +1,3 @@
+- src: https://github.com/nousdefions/ansible-role-stig
+  name: rhel6-stig
+  path: roles/

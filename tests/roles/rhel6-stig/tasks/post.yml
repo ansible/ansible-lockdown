@@ -1,0 +1,6 @@
+---
+- name: Cleanup temp files
+  file: path={{ item }} state=absent
+  changed_when: false
+  with_items:
+   - /tmp/rhel6stig_rpm_verify
