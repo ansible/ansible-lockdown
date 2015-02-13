@@ -37,9 +37,9 @@ Current Build Statuses For STIGS
 
 |    OS    |     Repo     |     Status      | 
 | ---------|--------------|------------------
-| RedHat 6 |   Repo [0]   | BUILD/FAIL icon |
+| RedHat 6 |   [Repo] [0]   | [![Build Status](https://drone.io/github.com/nousdefions/ansible-role-stig/status.png)](https://drone.io/github.com/nousdefions/ansible-role-stig/latest) |
 
 
-
+[0]:https://github.com/nousdefions/ansible-role-stig
 [DISA]:http://iase.disa.mil/stigs/Pages/index.aspx
 [CIS]:https://benchmarks.cisecurity.org
