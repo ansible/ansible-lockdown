@@ -1,0 +1,13 @@
+---
+- name: Spin up instances for testing
+  connection: local
+  hosts: localhost
+  roles:
+    - test_env
+
+- name: Applying STIG Baselines
+  sudo: yes
+  remote_user: ec2-user
+  hosts: stig_servers
+  roles:
+    - { role: rhel6-stig, rhel6stig_fullauto: true, tags: ['cat1', 'rhel6'] }
