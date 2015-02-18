@@ -11,3 +11,4 @@
   hosts: stig_servers
   roles:
     - { role: rhel6-stig, rhel6stig_fullauto: true, tags: ['cat1', 'rhel6'] }
+    - { role: post-test }
