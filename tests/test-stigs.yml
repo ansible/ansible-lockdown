@@ -4,27 +4,27 @@
   hosts: localhost
   tasks:
   	- name: Spin up EC2 instances to test STIGs
-	  ec2: 
-	    instance_type: t2.medium
-	    vpc_subnet_id: "subnet-06ca0c2d"
-	    wait: yes
-	    region: "us-east-1"
-	    state: present
-	    assign_public_ip: yes
-	    image: "{{ item }}"
-	    group_id: "sg-4c2b9f28"
-	    count: 1
-	    key_name: insecure-jdavila
-	    volumes:
-	      - device_name: /dev/xvda
-	        device_type: gp2
-	        volume_size: 20
-	        delete_on_termination: true
-	    instance_tags:
-	      Name: STIG Test
-	  with_items:
-	    - ami-48400720
-	  register: stig_instances
+  	  ec2: 
+  	    instance_type: t2.medium
+  	    vpc_subnet_id: "subnet-06ca0c2d"
+  	    wait: yes
+  	    region: "us-east-1"
+  	    state: present
+  	    assign_public_ip: yes
+  	    image: "{{ item }}"
+  	    group_id: "sg-4c2b9f28"
+  	    count: 1
+  	    key_name: insecure-jdavila
+  	    volumes:
+  	      - device_name: /dev/xvda
+  	        device_type: gp2
+  	        volume_size: 20
+  	        delete_on_termination: true
+  	    instance_tags:
+  	      Name: STIG Test
+  	  with_items:
+  	    - ami-48400720
+  	  register: stig_instances
 
 	- name: Add Test Instances to group
 	  add_host: hostname="{{ item.instances[0].public_ip }}" groups=stig_servers
