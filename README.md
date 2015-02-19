@@ -5,6 +5,12 @@ ansible-lockdown
 
 This is intended to serve a centralized repo utilizing submodules that point to STIG and CIS repositories. Each individual STIG and CIS repo is intended to be available via Ansible Galaxy.
 
+### Instructions
+
+This repository is meant to serve as the hub for all STIG and CIS work maintained and vetted by Ansible and our Security partner MindPointGroup
+
+The different baseline repos are easily available via Ansible Galaxy; of course cloning  is also ok.
+
 
 ### STIGS
 
@@ -15,15 +21,6 @@ The standards are pulled directly from [DISA].
 
 The standards are pulled directly from [CIS].
 
-
-### Testing
-
-Each repository, and subsequent commits,  will undergo an individual automated testing process which consists of:
-
-1. Executing the STIG or CIS playbook
-2. Validating the proper implementaiton of standards, benchmarks and or guidelines by utilizing guidance provided by either DISA or CIS. 
-
-Test results are available below and at each repository's README.
 
 ### Contributing
 
