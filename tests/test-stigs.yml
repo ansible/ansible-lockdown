@@ -1,54 +1,27 @@
 ---
-- name: Spin up instances for testing
+- name: MAC-1_Public RHEL6 CAT I | Spin up instances for testing
   connection: local
   hosts: localhost
-  tasks:
-    - name: Spin up EC2 instances to test STIGs
-      ec2: 
-        instance_type: t2.medium
-        vpc_subnet_id: "subnet-06ca0c2d"
-        wait: yes
-        region: "us-east-1"
-        state: present
-        assign_public_ip: yes
-        image: "{{ item }}"
-        group_id: "sg-4c2b9f28"
-        count: 1
-        key_name: insecure-jdavila
-        volumes:
-          - device_name: /dev/xvda
-            device_type: gp2
-            volume_size: 20
-            delete_on_termination: true
-        instance_tags:
-          Name: STIG Test
-      with_items:
-        - ami-48400720
-      register: stig_instances
-
-    - name: Add Test Instances to group
-      add_host: hostname="{{ item.instances[0].public_ip }}" groups=stig_servers
-      with_items: stig_instances.results
-
-    - name: Wait for SSH to come up
-      wait_for: host="{{ item.instances[0].public_ip }}" port=22 delay=60 timeout=320 state=started
-      with_items: stig_instances.results
+  roles:
+    - start_env
 
 
-- name: Applying STIG Baselines and Checking Against Pass Threshold.
+- name: MAC-1_Public RHEL6 CAT I | Applying STIG Baselines
   sudo: yes
   remote_user: ec2-user
   hosts: stig_servers
   roles:
     - { role: rhel6-stig, rhel6stig_fullauto: true, tags: ['cat1', 'rhel6'] }
+
+- name: MAC-1_Public RHEL6 CAT I | Checking against pass threshold
+  sudo: yes
+  remote_user: ec2-user
+  hosts: stig_servers
+  roles:
     - { role: post-test }
 
-- name: Terminate instances
+- name: MAC-1_Public RHEL6 CAT I | Terminate instances
   connection: local
   hosts: localhost
-  tasks:
-    - name: Terminate EC2 test environment
-      ec2:
-        state: absent
-        instance_ids: '{{ item.instances[0].instance_ids }}'
-      with_items: stig_instances.results
+  roles:
+    - stop_env

@@ -1,4 +1,3 @@
----
 - name: Spin up EC2 instances to test STIGs
   ec2: 
     instance_type: t2.medium
