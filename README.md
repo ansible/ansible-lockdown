@@ -13,7 +13,7 @@ This repository in particular is intended to serve as a centralized repository u
 
 ### Instructions
 
-In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed. You can then download the roles in their entirety through git by following the appropriate links in the table or you can leverage [ansible-galaxy][galaxy-url].
+In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed. You can then download the roles in their entirety through git by following the appropriate links in the table or you can leverage [ansible-galaxy][galaxy-url].s
 
 
 ### STIGS
@@ -36,8 +36,9 @@ Feature request, bug reports, etc, should all be opened as GitHub tickets. An an
 Current Build Statuses For Security Roles
 ----------------------------------------------------------------------------------------------------
 
+
 |    Standard  |      OS      |     Repo     |       Galaxy Link        |          Status          | 
-| -------------|--------------|---------------------------------------------------------------------
+| -------------|--------------|--------------|--------------------------|--------------------------|
 |   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  ![STATUS][rhel6status]  |
 
 **Note:** A green badge represents a successful build which consists of:
