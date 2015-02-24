@@ -4,16 +4,16 @@ Ansible-Lockdown
 
 ### Intro
 
-Ansible-Lockdown is a collaborative effort between Ansible and our IT Security partner MindPoint Group to provide you with thorough, vetted security roles that you can integrate with any of your existing playbooks or as the building blocks for completely new playbooks. 
+Ansible-Lockdown is a collaborative effort between Ansible and our IT Security partner MindPoint Group to provide you with thorough, vetted, and trusted security roles that you can integrate with any of your existing playbooks or as the building blocks for completely new playbooks. 
 
-The initial effort is for the development of roles centered around STIG and CIS baselines. Based on community feedback we'll then proceed with other security guidelines.
+The initial effort is for the development of roles centered around STIG and CIS benchmark baselines. Based on community feedback we'll then proceed with other security guidelines for additional operating systems and applications.
 
 This repository in particular is intended to serve as a centralized repository utilizing submodules that point to all security-role repositories that are jointly maintained Ansible and MindPoint Group. 
 
 
 ### Instructions
 
-In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed. You can then download the roles in their entirety through git by following the appropriate links in the table or you can leverage [ansible-galaxy][galaxy-url].s
+In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed. You can then download the roles in their entirety through git by following the appropriate links in the table or you can leverage [ansible-galaxy][galaxy-url].
 
 
 ### STIGS
