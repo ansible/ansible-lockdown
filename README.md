@@ -49,12 +49,12 @@ Current Build Statuses For Security Roles
 
 
 
-[0]:https://github.com/nousdefions/RHEL6-STIG
+[0]:https://github.com/ansible/RHEL6-STIG
 [rhel6status]:https://codeship.com/projects/6ff25160-95b3-0132-d4fc-466960a0e7d2/status?branch=devel
 [DISA]:http://iase.disa.mil/stigs/Pages/index.aspx
 [CIS]:https://benchmarks.cisecurity.org
 [stigma-repo]:https://github.com/defionscode/STIGMA
 [openscap]:http://www.open-scap.org/page/Main_Page
-[galaxy-rhel6]:http://
+[galaxy-rhel6]:https://galaxy.ansible.com/list#/roles/2953
 [ansible-docs]:http://docs.ansible.com/
 [galaxy-url]:https://galaxy.ansible.com/intro
