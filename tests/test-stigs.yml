@@ -1,26 +1,26 @@
 ---
-- name: MAC-1_Public RHEL6 CAT I | Spin up instances for testing
+- name: RHEL6 STIG | Spin up instances for testing
   connection: local
   hosts: localhost
   roles:
     - start_env
 
 
-- name: MAC-1_Public RHEL6 CAT I | Applying STIG Baselines
+- name: RHEL6 STIG | Applying STIG Baselines
   sudo: yes
   remote_user: ec2-user
   hosts: stig_servers
   roles:
     - { role: rhel6-stig, rhel6stig_fullauto: true, tags: ['cat1', 'rhel6'] }
 
-- name: MAC-1_Public RHEL6 CAT I | Checking against pass threshold
+- name: RHEL6 STIG | Checking against pass threshold
   sudo: yes
   remote_user: ec2-user
   hosts: stig_servers
   roles:
     - { role: post-test }
 
-- name: MAC-1_Public RHEL6 CAT I | Terminate instances
+- name: RHEL6 STIG | Terminate instances
   connection: local
   hosts: localhost
   roles:

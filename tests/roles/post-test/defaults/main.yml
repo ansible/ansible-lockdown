@@ -5,6 +5,6 @@ cpe: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark-cpe-dictionary.xml"
 scap_url: "http://iase.disa.mil/stigs/Documents/U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark.zip"
 scap_prefix: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark"
 high_pct: 100
-med_pct: 50
+med_pct: 90
 low_pct: 24
 tot_pct: 44
