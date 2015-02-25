@@ -11,7 +11,7 @@
   remote_user: ec2-user
   hosts: stig_servers
   roles:
-    - { role: rhel6-stig, rhel6stig_fullauto: true, tags: ['cat1', 'rhel6'] }
+    - { role: rhel6-stig, rhel6stig_fullauto: true, rhel6stig_cat2: true, rhel6stig_cat3: true, tags: ['cat1', 'rhel6'] }
 
 - name: RHEL6 STIG | Checking against pass threshold
   sudo: yes
