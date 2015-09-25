@@ -71,6 +71,8 @@ Herein lies the contribution guidelines for helping out with this project. Do ta
         Vendor-provided cryptographic certificates must be installed to verify the integrity of system software."
 ```
 * Every standard implemented must consist of at least two sequential tasks, one that conducts a check and registers it to a variable, and another that applies the standard. Note that the task which applies the standard does not necessarily have to use the registered variable from the prior task.
+* There should only be one standard remediated or checked per task (even at the expense of having less code)
+* All audit tasks should have `changed_when: no` and should ignore errors when necessary.
 
 
 
