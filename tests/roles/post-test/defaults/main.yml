@@ -2,9 +2,9 @@
 epel: "http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
 profile: "MAC-1_Public"
 cpe: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark-cpe-dictionary.xml"
-scap_url: "http://iase.disa.mil/stigs/Documents/U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark.zip"
-scap_prefix: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark"
+scap_url: "http://iasecontent.disa.mil/stigs/zip/July2015/U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark.zip"
+scap_prefix: "U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark"
 high_pct: 100
 med_pct: 90
-low_pct: 80
-tot_pct: 44
+low_pct: 90
+tot_pct: 90
