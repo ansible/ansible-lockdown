@@ -3,7 +3,7 @@ Ansible Lockdown
 
 If you're reading this, hopefully you are considering helping out with the Lockdown project. 
 
-Herein lies the contribution guidelines for helping out with this project. Do take the guidlines here literally, if you find issue with any of them or you see room for improvement, please let us know via a GitHub issue or via the [Lockdown mailing list][mail].
+Herein lies the contribution guidelines for helping out with this project. Do take the guidelines here literally, if you find issue with any of them or you see room for improvement, please let us know via a GitHub issue or via the [Lockdown mailing list][mail].
 
 
 
@@ -48,7 +48,6 @@ Herein lies the contribution guidelines for helping out with this project. Do ta
       path: /tmp/deletethis
 
 # Not This
-# This
 - name: Create a directory
   file:
     state: directory
@@ -57,11 +56,30 @@ Herein lies the contribution guidelines for helping out with this project. Do ta
 
 * There should be a single line break between tasks
 * Every task (except prelim tasks) should have, at a minimum and when applicable, the following tags:
-   * Severity level (cat1, cat2, high, etc)
-   * Identification number (example, the vulnerabilty ID number in the case of RHEL6 STIG)
-   * audit/patch
-* Tags can be either bracketed or multi-line
-* Tasks should happen sequentially as they appear in the given standard. 
+    * Severity level (cat1, high, cat2, medium, etc.)
+    * Identification number (example, the vulnerability ID number in the case of RHEL6 STIG)
+    * audit/patch
+* Tags can be either bracketed or multi-line, though multi-line is preferred. If multi-line tags are used, they should be indented four spaces just like module arguments above.
+```yml
+# This
+- name: Create a directory
+  file:
+      state: directory
+      path: /tmp/deletethis
+  tags:
+      - files
+      - debug
+
+# Not This
+- name: Create a directory
+  file:
+    state: directory
+    path: /tmp/deletethis
+  tags:
+    - files
+    - debug
+```
+* Tasks should run sequentially by vulnerability ID as listed in the given standard. 
 * Every task must be named and should adhere to the following convention:
 ```yml
 - name: "| $severity | $id_number | patch/audit |\n
