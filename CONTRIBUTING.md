@@ -87,8 +87,14 @@ Herein lies the contribution guidelines for helping out with this project. Do ta
 - name: "HIGH | V-38476 | PATCH | Vendor-provided cryptographic certificates must be installed to verify the integrity of system software."
 ```
 * Every standard implemented must consist of at least two sequential tasks: one that conducts a check and registers the results to a variable, and another that applies the standard. Note that the task which applies the standard does not necessarily have to use the registered variable from the prior task.
+* There should only be one standard remediated or checked per task, even if several remediations could be combined into a single task. The goal of this role is granular remediation.
+* If multiple standards must be combined into a single task, the name should adhere to the following convention:
+```yml
+- name: "MEDIUM | V-38443, V-38448, V-38449 | AUDIT |\n
+        \tThe /etc/gshadow file must be owned by root.\n
+        \tThe /etc/gshadow file must be group-owned by root.\n
+        \tThe /etc/gshadow file must have mode 0000."
 ```
-* There should only be one standard remediated or checked per task (even at the expense of having less code)
 * All audit tasks should: 
     * have `changed_when: no`
     * have `always_run: yes`
