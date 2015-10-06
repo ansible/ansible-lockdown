@@ -82,13 +82,12 @@ Herein lies the contribution guidelines for helping out with this project. Do ta
 * Tasks should run sequentially by vulnerability ID as listed in the given standard. 
 * Every task must be named and should adhere to the following convention:
 ```yml
-- name: "| $severity | $id_number | patch/audit |\n
-        $description_provided_by_standard"
+- name: "$severity | $id_number | PATCH/AUDIT | $description_provided_by_standard"
 
-- name: "| HIGH | V-38476 | PATCH |\n
-        Vendor-provided cryptographic certificates must be installed to verify the integrity of system software."
+- name: "HIGH | V-38476 | PATCH | Vendor-provided cryptographic certificates must be installed to verify the integrity of system software."
 ```
-* Every standard implemented must consist of at least two sequential tasks, one that conducts a check and registers it to a variable, and another that applies the standard. Note that the task which applies the standard does not necessarily have to use the registered variable from the prior task.
+* Every standard implemented must consist of at least two sequential tasks: one that conducts a check and registers the results to a variable, and another that applies the standard. Note that the task which applies the standard does not necessarily have to use the registered variable from the prior task.
+```
 * There should only be one standard remediated or checked per task (even at the expense of having less code)
 * All audit tasks should: 
     * have `changed_when: no`
