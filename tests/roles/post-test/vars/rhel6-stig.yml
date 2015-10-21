@@ -1,0 +1,10 @@
+---
+epel: "http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
+stigma_dl: "https://raw.githubusercontent.com/nousdefions/STIGMA/master/src/stigma.py"
+profile: "MAC-1_Public"
+scap_url: "http://iasecontent.disa.mil/stigs/zip/July2015/U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark.zip"
+scap_prefix: "U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark"
+high_pct: 100
+med_pct: 90
+low_pct: 70
+tot_pct: 40

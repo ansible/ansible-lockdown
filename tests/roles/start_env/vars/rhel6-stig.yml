@@ -1,0 +1,10 @@
+ami_ids:
+    - ami_id: ami-0d28fe66
+      ssh_user: ec2-user
+      tag_Name: RHEL6 STIG Test
+      block_device_name: /dev/sda1
+
+    - ami_id: ami-57cd8732
+      ssh_user: centos
+      tag_Name: CentOS6 STIG Test
+      block_device_name: /dev/sda1

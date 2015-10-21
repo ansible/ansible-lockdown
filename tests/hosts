@@ -1,1 +1,5 @@
-localhost ansible_python_interpreter=/home/rof/.virtualenv/bin/python
+# If doing manual ad-hoc testing on existing hosts you can add them
+# to the "test_servers" group.
+#[test_servers]
+#1.2.3.4 ansible_ssh_user=ec2-user
+#1.2.3.5 ansible_ssh_user=centos

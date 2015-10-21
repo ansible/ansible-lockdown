@@ -1,30 +1,79 @@
-- name: Spin up EC2 instances to test STIGs
-  ec2: 
-    instance_type: t2.medium
-    vpc_subnet_id: "subnet-a2169ed5"
+- include_vars: "{{ baseline }}.yml"
+
+- name: Generate a random UUID to use
+  command: uuidgen
+  register: random_uuid
+
+- name: Create temporary SSH key pair to use
+  ec2_key:
+      name: "CI_test_key-{{ random_uuid.stdout }}"
+      profile: "{{ aws_profile }}"
+      region: "{{ region }}"
+      state: present
+  register: ec2_keypair
+
+- name: Save temporary SSH key
+  copy:
+      content: "{{ ec2_keypair.key.private_key }}"
+      dest: ./insecure-CI-key
+      mode: 0400
+  when: ec2_keypair.changed
+
+- name: Create temporary security group
+  ec2_group:
+      name: "CI_test_group-{{ random_uuid.stdout }}"
+      description: "CI_test_group-{{ random_uuid.stdout }}"
+      region: "{{ region }}"
+      state: present
+      vpc_id: "{{ vpc_id }}"
+      profile: "{{ aws_profile }}"
+      rules:
+          - proto: tcp
+            type: ssh
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+  register: security_group
+
+- name: Spin up EC2 instances to test
+  ec2:
+    instance_type: "{{ type }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
     wait: yes
-    region: "us-east-1"
+    region: "{{ region }}"
     state: present
     assign_public_ip: yes
-    image: "{{ item }}"
-    group_id: "sg-6f885c0b"
+    image: "{{ item.ami_id }}"
+    group_id: "{{ security_group.group_id }}"
     count: 1
-    key_name: insecure-jdavila
+    key_name: "{{ ec2_keypair.key.name }}"
+    profile: "{{ aws_profile }}"
     volumes:
-      - device_name: /dev/xvda
-        device_type: gp2
-        volume_size: 20
-        delete_on_termination: true
+        - device_name: "{{ item.block_device_name }}"
+          device_type: gp2
+          volume_size: 20
+          delete_on_termination: true
     instance_tags:
-      Name: STIG Test
+        Name: "{{ item.tag_Name }}"
   with_items:
-    - ami-48400720
-  register: stig_instances
+      - "{{ami_ids}}"
+  register: ec2_instances
 
-- name: Add Test Instances to group
-  add_host: hostname="{{ item.instances[0].public_ip }}" groups=stig_servers
-  with_items: stig_instances.results
+- name: Add Instances to group
+  add_host:
+      hostname: "{{ item[0].instances[0].public_ip }}"
+      groups: test_servers
+      ansible_ssh_user: "{{ item[1].ssh_user }}"
+  with_nested:
+      - ec2_instances.results
+      - "{{ami_ids}}"
+  when: item[0].instances[0].image_id == item[1].ami_id
 
 - name: Wait for SSH to come up
-  wait_for: host="{{ item.instances[0].public_ip }}" port=22 delay=60 timeout=500 state=started
-  with_items: stig_instances.results
+  wait_for:
+      host: "{{ item.instances[0].public_ip }}"
+      port: 22
+      delay: 60
+      timeout: 500
+      state: started
+  with_items: ec2_instances.results

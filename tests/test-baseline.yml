@@ -1,0 +1,60 @@
+---
+- name: "{{baseline}} | Create test environment"
+  connection: local
+  hosts: localhost
+  vars:
+      aws_profile:
+      region: us-east-1
+      baseline: rhel6-stig
+  roles:
+      - role: start_env
+        tags:
+            - create
+
+- name: "{{baseline}} | Applying Baselines"
+  sudo: yes
+  hosts: test_servers
+  vars:
+      baseline: rhel6-stig
+  # Need to make the rhel6stig_* vars generic so this can be used across
+  # different baseline versions/types.
+  # Requires change in STIG baseline vars file.
+  roles:
+      - role: "{{ baseline }}"
+        rhel6stig_fullauto: true
+        rhel6stig_cat2: true
+        rhel6stig_cat3: true
+
+- name: "{{baseline}} | Checking against pass threshold"
+  sudo: yes
+  hosts: test_servers
+  vars:
+      baseline: rhel6-stig
+  roles:
+      - role: post-test
+        tags:
+            - check
+
+- name: "{{baseline}} | Delete test environment and cleanup local files"
+  connection: local
+  hosts: localhost
+  vars:
+      aws_profile:
+      region: us-east-1
+      baseline: rhel6-stig
+  roles:
+      - role: stop_env
+        tags:
+            - stop
+
+- name: "{{baseline}} | Assert pass or fail"
+  connection: local
+  hosts: localhost
+  vars:
+      baseline: rhel6-stig
+  tasks:
+      - name: Assert whether host passed baseline checks
+        assert:
+            that:
+                - "{{hostvars[item].baseline_check_results.rc}} == 0"
+        with_items: groups['test_servers']

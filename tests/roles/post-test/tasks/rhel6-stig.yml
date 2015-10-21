@@ -1,0 +1,63 @@
+---
+- include_vars: rhel6-stig.yml
+
+- name: Download EPEL
+  get_url:
+      url: "{{ epel }}"
+      dest: /tmp/
+
+- name: Install EPEL
+  yum:
+      name: /tmp/epel-release-6-8.noarch.rpm
+      state: present
+
+- name: Install OpenSCAP and Pip
+  yum:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+  with_items:
+      - openscap-utils
+      - python-pip
+
+- name: Install Python Libraries
+  pip:
+      name: "{{ item }}"
+      state: present
+  with_items:
+      - untangle
+      - tabulate
+
+- name: Download RHEL6 STIG files for OSCAP
+  get_url:
+      url: "{{ scap_url }}"
+      dest: /tmp/
+
+- name: Unzip OSCAP files
+  command: unzip -o {{ scap_url | basename }}
+  args:
+      chdir: /tmp/
+
+- name: Run OpenScap Checks and save to results.xml
+  shell: oscap xccdf eval --profile {{ profile }} --results results.xml --cpe {{ scap_prefix }}-cpe-dictionary.xml {{ scap_prefix }}-xccdf.xml > /dev/null 2>&1
+  args:
+      chdir: /tmp/
+  ignore_errors: yes
+
+- name: Get STIGMA
+  get_url:
+      url: "{{ stigma_dl }}"
+      dest: /tmp/stigma.py
+      mode: 0750
+
+- name: Run STIGMA against results.xml
+  command: ./stigma.py -P ./results.xml -H {{ high_pct }} -M {{ med_pct }} -L {{ low_pct }} -T {{ tot_pct }}
+  register: baseline_check_results
+  args:
+      chdir: /tmp/
+  ignore_errors: yes
+
+- name: Pull result file locally
+  fetch:
+      src: /tmp/results.xml
+      dest: ./baseline_results

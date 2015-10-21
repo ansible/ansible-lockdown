@@ -1,0 +1,15 @@
+---
+type: t2.medium
+vpc_id: vpc-83cce1e6
+vpc_subnet_id: subnet-a2169ed5
+
+ami_ids:
+    - ami_id:
+      ssh_user:
+      tag_Name:
+      block_device_name:
+
+    - ami_id:
+      ssh_user:
+      tag_Name:
+      block_device_name:

@@ -1,3 +1,22 @@
-- src: https://github.com/MindPointGroup/RHEL6-STIG 
+# This is the active stable 'release' version of the RHEL6-STIG
+# that is tested with ansible-lockdown.
+# If you would like to test another branch/version or your own fork
+# then update appropriately.
+#
+#- src: https://github.com/MindPointGroup/RHEL6-STIG
+#  name: rhel6-stig
+#  path: roles/
+#  version: v0.9
+
+# This is the active development version of RHEL6-STIG
+#
+- src: https://github.com/MindPointGroup/RHEL6-STIG
   name: rhel6-stig
   path: roles/
+  version: devel
+
+# Example of testing against your own fork
+#- src: https://github.com/shepdelacreme/RHEL6-STIG
+#  name: rhel6-stig
+#  path: roles/
+#  version: devel
