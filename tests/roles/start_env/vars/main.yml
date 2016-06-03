@@ -1,0 +1,4 @@
+---
+type: t2.micro
+vpc_id: vpc-83cce1e6
+vpc_subnet_id: subnet-0ec54125

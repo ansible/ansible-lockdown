@@ -1,6 +1,33 @@
 - name: Terminate EC2 test environment
   ec2:
     state: absent
-    region: us-east-1
+    region: "{{ region }}"
+    wait: yes
+    profile: "{{ aws_profile }}"
     instance_ids: '{{ item.instance_ids }}'
-  with_items: stig_instances.results
+  with_items: ec2_instances.results
+
+- name: Delete temporary key pair
+  ec2_key:
+      name: "CI_test_key-{{ random_uuid.stdout }}"
+      profile: "{{ aws_profile }}"
+      region: "{{ region }}"
+      state: absent
+
+- name: Delete local copy of SSH key
+  file:
+      name: ./insecure-CI-key
+      state: absent
+
+- name: Delete security group
+  ec2_group:
+      name: "CI_test_group-{{ random_uuid.stdout }}"
+      description: "CI_test_group-{{ random_uuid.stdout }}"
+      region: "{{ region }}"
+      profile: "{{ aws_profile }}"
+      state: absent
+
+- name: Remove local results files
+  file:
+      path: ./baseline_results
+      state: absent
