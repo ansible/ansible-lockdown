@@ -1,22 +1,30 @@
 ---
  - name: Download EPEL
-   get_url: url="{{ epel }}" dest=/tmp/
+   get_url:
+    url: "{{ epel }}"
+    dest: /tmp/
 
  - name: Install EPEL OpenSCAP and Pip
-   yum: name={{ item }} state=present
+   yum:
+    name: "{{ item }}"
+    state: present
    with_items:
      - /tmp/epel-release-6-8.noarch.rpm
      - openscap-utils
      - python-pip
 
  - name: Install Python Libraries
-   pip: name={{ item }} state=present
+   pip:
+    name: "{{ item }}"
+    state: present
    with_items:
      - untangle
      - tabulate
 
  - name: Download RHEL6 STIG files for OSCAP
-   get_url: url={{ scap_url }} dest=/tmp/
+   get_url:
+    url: "{{ scap_url }}"
+    dest: /tmp/
 
  - name: Unzip OSCAP files
    command: unzip -o {{ scap_url | basename }}
@@ -33,4 +41,4 @@
  - name: Run STIGMA against results.xml
    script: stigma.py -P /tmp/results.xml -H {{ high_pct }} -M {{ med_pct }} -L {{ low_pct }} -T {{ tot_pct }}
    args:
-     chdir: /tmp/ 
+     chdir: /tmp/

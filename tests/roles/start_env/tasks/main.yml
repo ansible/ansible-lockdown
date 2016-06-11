@@ -1,5 +1,5 @@
 - name: Spin up EC2 instances to test STIGs
-  ec2: 
+  ec2:
     instance_type: t2.medium
     vpc_subnet_id: "subnet-a2169ed5"
     wait: yes
@@ -22,9 +22,16 @@
   register: stig_instances
 
 - name: Add Test Instances to group
-  add_host: hostname="{{ item.instances[0].public_ip }}" groups=stig_servers
-  with_items: stig_instances.results
+  add_host:
+    hostname: "{{ item.instances[0].public_ip }}"
+    groups: stig_servers
+  with_items: "{{ stig_instances.results }}"
 
 - name: Wait for SSH to come up
-  wait_for: host="{{ item.instances[0].public_ip }}" port=22 delay=60 timeout=500 state=started
-  with_items: stig_instances.results
+  wait_for:
+    host: "{{ item.instances[0].public_ip }}"
+    port: 22
+    delay: 60
+    timeout: 500
+    state: started
+  with_items: "{{ stig_instances.results }}"
