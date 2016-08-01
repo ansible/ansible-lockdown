@@ -40,6 +40,8 @@ Current Build Statuses For Security Roles
 |    Standard  |      OS      |     Repo     |       Galaxy Link        |          Status          | 
 | -------------|--------------|--------------|--------------------------|--------------------------|
 |   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  ![STATUS][rhel6status]  |
+| -------------|--------------|--------------|--------------------------|--------------------------|
+|   DISA STIG  |   RedHat 7.* |   [Repo][1]  |         TBD              |         TBD              |
 
 **Note:** A green badge represents a successful build which consists of:
   1. Creating an AWS EC2 instance from the AMI's provided by AWS as defaults.
@@ -50,6 +52,7 @@ Current Build Statuses For Security Roles
 
 
 [0]:https://github.com/MindPointGroup/RHEL6-STIG
+[1]:https://github.com/MindPointGroup/RHEL7-STIG
 [ansible]:http://www.ansible.com/
 [mpg]:https://www.mindpointgroup.com/
 [rhel6status]:https://codeship.com/projects/6ff25160-95b3-0132-d4fc-466960a0e7d2/status?branch=devel
