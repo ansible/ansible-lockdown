@@ -40,9 +40,7 @@ Current Build Statuses For Security Roles
 |    Standard  |      OS      |     Repo     |       Galaxy Link        |          Status          | 
 | -------------|--------------|--------------|--------------------------|--------------------------|
 |   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  ![STATUS][rhel6status]  |
-| -------------|--------------|--------------|--------------------------|--------------------------|
 |   DISA STIG  |   RedHat 7.* |   [Repo][1]  |         TBD              |         TBD              |
-
 **Note:** A green badge represents a successful build which consists of:
   1. Creating an AWS EC2 instance from the AMI's provided by AWS as defaults.
   2. Applying the STIG baselines.
