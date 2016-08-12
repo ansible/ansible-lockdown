@@ -10,6 +10,10 @@ The initial effort is for the development of roles centered around STIG and CIS 
 
 This repository in particular is intended to serve as a centralized repository utilizing submodules that point to all security-role repositories that are jointly maintained Ansible and MindPoint Group. 
 
+## Mailing List
+Most of the communication around the project happens on the mailing list which can be accessed and subscribed to here:
+https://groups.google.com/forum/#!forum/ansible-lockdown
+
 
 ### Instructions
 
