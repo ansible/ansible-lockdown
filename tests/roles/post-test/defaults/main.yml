@@ -1,4 +1,3 @@
----
 epel: "http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
 profile: "MAC-1_Public"
 cpe: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark-cpe-dictionary.xml"
