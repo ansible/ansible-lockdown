@@ -1,6 +1,6 @@
 - name: Terminate EC2 test environment
   ec2:
-    state: absent
-    region: us-east-1
-    instance_ids: "{{ item.instance_ids }}"
+      state: absent
+      region: us-east-1
+      instance_ids: "{{ item.instance_ids }}"
   with_items: "{{ stig_instances.results }}"
