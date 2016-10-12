@@ -1,18 +1,9 @@
-- name: Download EPEL
-  get_url:
-      url: "{{ epel }}"
-      dest: /tmp/
-
-- name: Install EPEL OpenSCAP and Pip
+- name: Install EPEL
   yum:
-      name: "{{ item }}"
+      name: "{{ epel }}"
       state: present
-  with_items:
-    - /tmp/epel-release-6-8.noarch.rpm
-    - openscap-utils
-    - python-pip
 
-- name: Install OpenSCAP and Pip
+- name: Install OpenSCAP and pip
   yum:
       name:
           - openscap-utils
