@@ -1,0 +1,18 @@
+---
+# This playbook is run as a provisioner for vagrant
+### centos7
+- hosts: centos7
+  become: yes
+
+  roles:
+    - RHEL7-STIG
+
+### centos6
+- hosts: centos6
+  become: yes
+
+  vars_files:
+    - "group_vars/centos6"
+
+  roles:
+    - { role: RHEL6-STIG, rhel6stig_cat2: true, rhel6stig_cat3: true, rhel6stig_is_mail_relay: true }
