@@ -4,28 +4,28 @@ Ansible-Lockdown
 
 ### Intro
 
-Ansible-Lockdown is a collaborative effort between [Ansible][ansible] and our IT Security partner [MindPoint Group][mpg] to provide you with thorough, vetted, and trusted security roles that you can integrate with any of your existing playbooks or as the building blocks for completely new playbooks. 
+Ansible-Lockdown is a collaborative effort between [Ansible][ansible] and our IT Security partner [MindPoint Group][mpg] to provide you with thorough, vetted, and trusted security roles that you can integrate with any of your existing playbooks or as the building blocks for completely new playbooks.
 
 The initial effort is for the development of roles centered around STIG and CIS benchmark baselines. Based on community feedback we'll then proceed with other security guidelines for additional operating systems and applications.
 
-This repository in particular is intended to serve as a centralized repository utilizing submodules that point to all security-role repositories that are jointly maintained Ansible and MindPoint Group. 
+This repository in particular is intended to serve as a centralized repository utilizing submodules that point to all security-role repositories that are jointly maintained Ansible and MindPoint Group.
 
-## Mailing List
+### Mailing List
 Most of the communication around the project happens on the mailing list which can be accessed and subscribed to here:
 https://groups.google.com/forum/#!forum/ansible-lockdown
 
 
 ### Instructions
 
-In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed. You can then download the roles in their entirety through git by following the appropriate links in the table or you can leverage [ansible-galaxy][galaxy-url].
+In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed. You can then download the roles in their entirety through git by following the appropriate links in the table or you can leverage [ansible-galaxy](galaxy-url).
 
 
 ### STIGS
 
-The standards are pulled directly from [DISA]. 
+The standards are pulled directly from [DISA].
 
 
-### CIS 
+### CIS
 
 The standards are pulled directly from [CIS].
 
@@ -41,10 +41,11 @@ Current Build Statuses For Security Roles
 ----------------------------------------------------------------------------------------------------
 
 
-|    Standard  |      OS      |     Repo     |       Galaxy Link        |          Status          | 
+|    Standard  |      OS      |     Repo     |       Galaxy Link        |          Status          |
 | -------------|--------------|--------------|--------------------------|--------------------------|
-|   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  ![STATUS][rhel6status]  |
+|   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  [![STATUS][rhel6status]](https://app.codeship.com/projects/62882)  |
 |   DISA STIG  |   RedHat 7.* |   [Repo][1]  |         TBD              |         TBD              |
+
 **Note:** A green badge represents a successful build which consists of:
   1. Creating an AWS EC2 instance from the AMI's provided by AWS as defaults.
   2. Applying the STIG baselines.
@@ -52,16 +53,15 @@ Current Build Statuses For Security Roles
 
 
 
-
 [0]:https://github.com/MindPointGroup/RHEL6-STIG
 [1]:https://github.com/MindPointGroup/RHEL7-STIG
-[ansible]:http://www.ansible.com/
+[ansible]: http://www.ansible.com/
 [mpg]:https://www.mindpointgroup.com/
 [rhel6status]:https://codeship.com/projects/6ff25160-95b3-0132-d4fc-466960a0e7d2/status?branch=devel
 [DISA]:http://iase.disa.mil/stigs/os/unix-linux/Pages/index.aspx
 [CIS]:https://benchmarks.cisecurity.org
 [stigma-repo]:https://github.com/defionscode/STIGMA
 [openscap]:http://www.open-scap.org/page/Main_Page
-[galaxy-rhel6]:https://galaxy.ansible.com/list#/roles/2955
+[galaxy-rhel6]:https://galaxy.ansible.com/nousdefions/STIG-RHEL6/
 [ansible-docs]:http://docs.ansible.com/
 [galaxy-url]:https://galaxy.ansible.com/intro
