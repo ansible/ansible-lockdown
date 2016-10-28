@@ -83,11 +83,11 @@ Herein lies the contribution guidelines for helping out with this project. Do ta
   register: hosts_equiv_audit
   always_run: yes
   tags:
-      - cat1
-      - high
-      - audit
-      - V-38491
-      - hosts_equiv
+    - cat1
+    - high
+    - audit
+    - V-38491
+    - hosts_equiv
 ```
 
 * Tasks should run sequentially by vulnerability ID as listed in the given standard.
