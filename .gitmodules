@@ -1,6 +1,6 @@
 [submodule "RHEL6-STIG"]
 	path = RHEL6-STIG
-	url = git@github.com:MindPointGroup/RHEL6-STIG.git 
+	url = https://github.com/MindPointGroup/RHEL6-STIG
 [submodule "RHEL7-STIG"]
 	path = RHEL7-STIG
 	url = https://github.com/MindPointGroup/RHEL7-STIG.git
