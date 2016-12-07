@@ -33,6 +33,7 @@
       chdir: /tmp/
   register: results
   ignore_errors: yes
+  failed_when: results.rc == 1
 
 - name: Run STIGMA against results.xml
   script: stigma.py -P /tmp/results.xml -H {{ high_pct }} -M {{ med_pct }} -L {{ low_pct }} -T {{ tot_pct }}
