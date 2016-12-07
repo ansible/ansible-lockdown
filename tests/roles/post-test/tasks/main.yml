@@ -18,15 +18,14 @@
       - untangle
       - tabulate
 
-- name: Download RHEL6 STIG files for OSCAP
-  get_url:
-      url: "{{ scap_url }}"
-      dest: /tmp/
+    - untangle
+    - tabulate
 
-- name: Unzip OSCAP files
-  command: unzip -o {{ scap_url | basename }}
-  args:
-      chdir: /tmp/
+- name: Download and unzip OSCAP files
+  unarchive:
+    src: "{{ scap_url }}"
+    remote_src: yes
+    dest: /tmp/
 
 - name: Run OpenScap Checks and save to results.xml
   shell: oscap xccdf eval --profile {{ profile }} --results results.xml --cpe {{ scap_prefix }}-cpe-dictionary.xml {{ scap_prefix }}-xccdf.xml > /dev/null 2>&1
