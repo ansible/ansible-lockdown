@@ -5,5 +5,5 @@ scap_url: "http://iasecontent.disa.mil/stigs/zip/July2015/U_RedHat_6_V1R8_STIG_S
 scap_prefix: "U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark"
 high_pct: 100
 med_pct: 90
-low_pct: 90
-tot_pct: 90
+low_pct: 85
+tot_pct: 85
