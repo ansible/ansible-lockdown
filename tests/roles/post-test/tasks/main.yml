@@ -17,6 +17,7 @@
   with_items:
     - untangle
     - tabulate
+    - markupsafe
 
 - name: Download and unzip OSCAP files
   unarchive:
