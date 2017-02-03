@@ -43,7 +43,7 @@ Current Build Statuses For Security Roles
 
 |    Standard  |      OS      |     Repo     |       Galaxy Link        |          Status          |
 | -------------|--------------|--------------|--------------------------|--------------------------|
-|   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  [![STATUS][rhel6status]](https://app.codeship.com/projects/62882)  |
+|   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  [ ![Codeship Status for MindPointGroup/RHEL6-STIG](https://app.codeship.com/projects/6ff25160-95b3-0132-d4fc-466960a0e7d2/status?branch=devel)](https://app.codeship.com/projects/62882)  |
 |   DISA STIG  |   RedHat 7.* |   [Repo][1]  |         TBD              |         TBD              |
 
 **Note:** A green badge represents a successful build which consists of:
@@ -57,7 +57,6 @@ Current Build Statuses For Security Roles
 [1]:https://github.com/MindPointGroup/RHEL7-STIG
 [ansible]: http://www.ansible.com/
 [mpg]:https://www.mindpointgroup.com/
-[rhel6status]:https://codeship.com/projects/6ff25160-95b3-0132-d4fc-466960a0e7d2/status?branch=devel
 [DISA]:http://iase.disa.mil/stigs/os/unix-linux/Pages/index.aspx
 [CIS]:https://benchmarks.cisecurity.org
 [stigma-repo]:https://github.com/defionscode/STIGMA
@@ -65,3 +64,4 @@ Current Build Statuses For Security Roles
 [galaxy-rhel6]:https://galaxy.ansible.com/nousdefions/STIG-RHEL6/
 [ansible-docs]:http://docs.ansible.com/
 [galaxy-url]:https://galaxy.ansible.com/intro
+
