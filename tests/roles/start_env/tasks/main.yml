@@ -9,7 +9,7 @@
       image: "{{ item }}"
       group_id: "sg-6f885c0b"
       count: 1
-      key_name: insecure-jdavila
+      key_name: citest
       volumes:
           - device_name: /dev/xvda
             device_type: gp2

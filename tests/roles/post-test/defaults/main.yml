@@ -4,6 +4,6 @@ cpe: "U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark-cpe-dictionary.xml"
 scap_url: "http://iasecontent.disa.mil/stigs/zip/Oct2016/U_RedHat_6_V1R13_STIG_SCAP_1-1_Benchmark.zip"
 scap_prefix: "{{ ( scap_url | basename | splitext )[0] }}"
 high_pct: 90
-med_pct: 90
+med_pct: 89
 low_pct: 85
 tot_pct: 85
