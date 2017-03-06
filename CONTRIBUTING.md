@@ -122,6 +122,10 @@ Module arguments should be indented four spaces.
 
 When using `command`, `shell`, `raw`, or `script`, an appropriate `changed_when` and/or `failed_when` must be set on the task rather than `ignore_errors`. Do not simply ignore errors on a task unless absolutely necessary. Take the time to properly evaluate and define change and failure conditions.
 
+### Configuration Validation ###
+
+It is quite common to modify critical system configuration files during the course of security hardening. These include things such as `sudoers`, PAM settings, and `sshd_config`. All these files have the potential to lock you out of the system completely if a syntax error is introduced into the file. When modifying the configuration of critical components such as those listed above, all tasks should use the `validate` parameter to ensure the file is syntactically correct before being put in to place. This will save you from the need to [bake a cake](http://jpmens.net/2013/02/12/sudo-bake-me-a-cake/).
+
 [coc]:http://docs.ansible.com/ansible/community.html#community-code-of-conduct
 [mail]:https://groups.google.com/forum/#!forum/ansible-lockdown
 
