@@ -1,43 +1,49 @@
-Ansible-Lockdown
+Ansible Lockdown
 ----------------
 
 
-### Intro
+### Intro ###
 
-Ansible-Lockdown is a collaborative effort between [Ansible][ansible] and our IT Security partner [MindPoint Group][mpg] to provide you with thorough, vetted, and trusted security roles that you can integrate with any of your existing playbooks or as the building blocks for completely new playbooks.
+Ansible Lockdown is a collection of Ansible roles related to security automation. All roles included in this project must meet the [contribution guidelines](CONTRIBUTING.md).
+
+Some roles referenced in this project are a collaborative effort between [Ansible][ansible] and our IT Security partner [MindPoint Group][mpg] to provide you with thorough, vetted, and trusted security roles that you can integrate with any of your existing playbooks or as the building blocks for completely new playbooks. Other roles included in this project, while not vetted by MindPoint Group, have been deemed by the maintainers and community to meet the contribution guidelines.
 
 The initial effort is for the development of roles centered around STIG and CIS benchmark baselines. Based on community feedback we'll then proceed with other security guidelines for additional operating systems and applications.
 
-This repository in particular is intended to serve as a centralized repository utilizing submodules that point to all security-role repositories that are jointly maintained Ansible and MindPoint Group.
-
-### Mailing List
-Most of the communication around the project happens on the mailing list which can be accessed and subscribed to here:
-https://groups.google.com/forum/#!forum/ansible-lockdown
+### Mailing List ###
+Most of the communication around the project happens on the [mailing list](https://groups.google.com/forum/#!forum/ansible-lockdown). That is best way to stay up to date with what is happening with the project.
 
 
-### Instructions
 
-In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed. You can then download the roles in their entirety through git by following the appropriate links in the table or you can leverage [ansible-galaxy](galaxy-url).
+### Instructions ###
+
+In order to use the roles you should first ensure that you have [Ansible][ansible-docs] installed.
+
+To clone the entire project and use the included playbooks:
+
+    git clone --recursive https://github.com/ansible/ansible-lockdown.git
+
+You can also install the roles individually from Ansible Galaxy.
 
 
-### STIGS
+### STIGS ###
 
 The standards are pulled directly from [DISA].
 
 
-### CIS
+### CIS ###
 
 The standards are pulled directly from [CIS].
 
 
-### Contributing
+### Contributing ###
 
-Contributions to ansible-lockdown and STIG roles will follow a similar process to the main Ansible project. Fork the repository, make changes, and submit a pull-request. Pull-request should not contain any merges or merge-conflicts.
+Contributions to Ansible Lockdown and roles referenced here will follow a similar process to the main Ansible project. Fork the repository, make changes, and submit a pull request. Pull requests should not contain any merges or merge conflicts.
 
-Feature request, bug reports, etc, should all be opened as GitHub tickets. An ansible-lockdown mailing list is in the works.
+Feature requests and bug reports should all be opened on the project page for the individual role, not here.
 
 
-Current Build Statuses For Security Roles
+Current Build Statuses for Security Roles
 ----------------------------------------------------------------------------------------------------
 
 
@@ -48,7 +54,7 @@ Current Build Statuses For Security Roles
 
 **Note:** A green badge represents a successful build which consists of:
   1. Creating an AWS EC2 instance from the AMI's provided by AWS as defaults.
-  2. Applying the STIG baselines.
+  2. Applying the security baseline.
   3. Using [OpenSCAP][openscap] and [STIGMA][stigma-repo] to further validate the application of the baselines.
 
 
