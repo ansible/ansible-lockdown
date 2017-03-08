@@ -4,3 +4,6 @@
 [submodule "RHEL7-STIG"]
 	path = RHEL7-STIG
 	url = https://github.com/MindPointGroup/RHEL7-STIG.git
+[submodule "cis-ubuntu-14-ansible"]
+	path = cis-ubuntu-14-ansible
+	url = https://github.com/oguya/cis-ubuntu-14-ansible.git
