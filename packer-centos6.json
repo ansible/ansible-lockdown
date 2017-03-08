@@ -1,0 +1,132 @@
+{
+  "push": {
+    "name": "dockpack/centos6"
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "override": {
+        "virtualbox-iso": {
+          "scripts": [
+            "scripts/virtualbox.sh",
+            "scripts/ansible-centos.sh"
+          ]
+        },
+        "vmware-iso": {
+          "scripts": [
+            "scripts/vmware.sh",
+            "scripts/ansible-centos.sh"
+          ]
+        },
+        "amazon-ebs": {
+          "scripts": [
+            "scripts/ansible-centos.sh"
+          ]
+        }
+      }
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "centos6.yml",
+      "role_paths": [
+        "RHEL6-STIG"
+      ],
+      "extra_arguments": ["-vv"]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/cleanup.sh"
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.7-x86_64-noX.cfg<enter><wait>"
+      ],
+      "guest_os_type": "RedHat_64",
+      "headless": false,
+      "http_directory": "kickstart",
+      "iso_urls": [
+        "file:///Users/Shared/CentOS-6.7-x86_64-netinstall.iso",
+        "http://www.mirrorservice.org/sites/mirror.centos.org/6/isos/x86_64/CentOS-6.7-x86_64-netinstall.iso"
+      ],
+      "iso_checksum_type": "md5",
+      "iso_checksum": "171ce654ec06040d096daf75934ca8ca",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -h 0",
+      "ssh_username": "root",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "20m",
+      "guest_additions_mode": "upload",
+      "guest_additions_path": "VBoxGuestAdditions.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "centos6",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "512"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ]
+    },
+    {
+      "type": "vmware-iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.7-x86_64-noX.cfg<enter><wait>"
+      ],
+      "boot_wait": "30s",
+      "guest_os_type": "Centos-64",
+      "headless": false,
+      "http_directory": "kickstart",
+      "iso_urls": [
+        "file:///Users/Shared/CentOS-6.7-x86_64-netinstall.iso",
+        "http://www.mirrorservice.org/sites/mirror.centos.org/6/isos/x86_64/CentOS-6.7-x86_64-netinstall.iso"
+      ],
+      "iso_checksum_type": "md5",
+      "iso_checksum": "171ce654ec06040d096daf75934ca8ca",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -h 0",
+      "ssh_username": "root",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "tools_upload_flavor": "linux",
+      "vm_name": "centos6",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "512",
+        "numvcpus": "2"
+      }
+    },{
+
+	    "type": "amazon-ebs",
+	    "access_key": "{{user `aws_access_key`}}",
+	    "secret_key": "{{user `aws_secret_key`}}",
+
+	    "region": "eu-central-1",
+	    "source_ami": "ami-650dea0a",
+	    "instance_type": "t2.micro",
+
+	    "ssh_username": "root",
+	    "ssh_port": 22,
+	    "ssh_timeout": "10000s",
+
+	    "ami_name": "amazon-ebs-centos-box {{timestamp}}"
+
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "packer/{{.Provider}}-centos6.box"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+#!/usr/bin/env ansible-playbook
+- hosts: centos6
+  gather_facts: False
+
+  vars_files:
+    - group_vars/centos6
+
+  vars:
+    - requirements:
+        - tabulate
+        - untangle
+        - pytest
+        - python-coveralls
+        - pytest-cov
+
+  tasks:
+  - name: 'add packages for security audit'
+    become: yes
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+     - unzip
+     - git
+     - openscap-utils
+     - python-argparse
+     - python-pip
+
+  - name: 'add python modules for security audit'
+    become: yes
+    pip:
+      name: "{{item}}"
+    with_items: "{{ requirements }}"
+
+  - name: 'ensure absense of STIG_SCAP results.xml file'
+    become: yes
+    file:
+      dest: /root/results.xml
+      state: absent
+    tags:
+      - audit
+      - stig
+
+  - name: 'ensure absense of STIG_SCAP rhel-stig-report.html file'
+    become: yes
+    file:
+      dest: /root/rhel-stig-report.html
+      state: absent
+    tags:
+      - audit
+      - stig
+
+  - name: 'download from http://iase.disa.mil/'
+    get_url:
+      url: "{{stig_baseurl}}/{{stig_benchmark}}"
+      dest: "/tmp/{{stig_benchmark}}"
+    tags:
+      - stig
+
+  - name: 'unzip Security Content Automation Protocol (SCAP) Content and Tools'
+    unarchive: 
+      copy: no
+      src: /tmp/{{stig_benchmark}}
+      dest: /home/vagrant
+    tags:
+      - stig
+
+  - name: 'make this benchmark work for Centos instead of RHEL'
+    shell: "perl -pi -e 's/redhat:enterprise_linux/centos:centos/;' *"
+    tags:
+      - stig
+
+  - name: 'run the SCAP tool and create rhel-stig-report.html'
+    become: yes
+    command: "oscap xccdf eval \
+      --profile MAC-1_Sensitive \
+      --results /tmp/results.xml \
+      --report /vagrant/rhel-stig-report.html \
+      --cpe U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark-cpe-dictionary.xml \
+      U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark-xccdf.xml"
+    no_log: yes
+    ignore_errors: yes
+    tags:
+      - audit
+      - stig
+

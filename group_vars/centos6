@@ -1,0 +1,58 @@
+---
+location: 'Appsterdam'
+
+a_remote_loghost: loghost
+
+java_packages:
+  - java-1.7.0-openjdk
+
+yum_packages:
+   - libselinux-python
+   - libsemanage-python
+   - python-httplib2
+   - unzip
+   - ansible # so you can use it as a control host too
+   - acpid
+
+# FOR THE RHEL_STIG security compliance
+rhel6stig_set_bootloader_password: false
+rhel6stig_cat1: true
+rhel6stig_cat2: true
+rhel6stig_cat3: true
+rhel6stig_fullauto: true
+rhel6stig_use_dhcp: false
+stig_benchmark: 'U_RedHat_6_V1R8_STIG_SCAP_1-1_Benchmark.zip'
+stig_baseurl: 'http://iasecontent.disa.mil/stigs/zip/July2015'
+
+rhel6stig_auditd_config:
+  # V-38464 - compliant options SYSLOG|EXEC|SINGLE|HALT
+  disk_error_action: SYSLOG
+  # V-38468 - compliant options SYSLOG|EXEC|SINGLE|HALT
+  disk_full_action: SINGLE
+  # V-38470 - compliant options EMAIL|SYSLOG
+  space_left_action: EMAIL
+  # V-38633 - compliant options 6 or higher (MB)
+  max_log_file: 10
+  # V-38634 - compliant options ROTATE
+  max_log_file_action: ROTATE
+  # V-38636 - compliant options 5 or higher
+  num_logs: 5
+  # V-38678 - must be set to locally defined value - default 75 MB
+  space_left: 75
+  # V-38680 - compliant options - admin account to email
+  action_mail_acct: root
+  # V-54381 - compliant options SINGLE|SUSPEND|HALT|EXEC|SYSLOG
+  # Guidance says that anything but SINGLE results in finding
+  # then says SUSPEND or HALT are acceptable and that
+  # system where availability need is high will need to set this to
+  # something else entirely.
+  # NOTE: SINGLE user mode setting will break cloud systems.
+  admin_space_left_action: SINGLE
+  #
+  # 2    Tells your system to perform an immediate shutdown without
+  #      flushing any pending data to disk when the limits of your
+  #      audit system are exceeded. Because this shutdown is not a clean shutdown.
+  #      restrict the use of -f 2 to only the most security conscious environments
+  # 1    System continues to run, issues a warning and audit stops.
+  #      Use this for any other setup to avoid loss of data or data corruption.
+  auditd_failure_flag: 1

@@ -1,0 +1,11 @@
+---
+# This playbook is run from packer during kickstart (phase 1)
+- hosts: 127.0.0.1
+  user: vagrant
+  become: yes
+
+  vars_files:
+    - group_vars/centos6
+
+  roles:
+    - { role: RHEL6-STIG, rhel6stig_cat2: true, rhel6stig_cat3: false, rhel6stig_is_mail_relay: true }
