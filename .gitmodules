@@ -4,3 +4,6 @@
 [submodule "RHEL7-STIG"]
 	path = RHEL7-STIG
 	url = https://github.com/MindPointGroup/RHEL7-STIG.git
+[submodule "RHEL7-CIS"]
+	path = RHEL7-CIS
+	url = https://github.com/MindPointGroup/RHEL7-CIS
