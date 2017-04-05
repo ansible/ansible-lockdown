@@ -1,0 +1,14 @@
+- name: Run the appropriate STIG
+  hosts: all
+
+  roles:
+      - role: RHEL6-STIG
+        when:
+            - ansible_os_family == 'RedHat'
+            - ansible_distribution_major_version | version_compare('6', '=')
+
+      - role: RHEL7-STIG
+        when:
+            - ansible_os_family == 'RedHat'
+            - ansible_distribution_major_version | version_compare('7', '=')
+
