@@ -10,9 +10,10 @@ Some roles referenced in this project are a collaborative effort between [Ansibl
 
 The initial effort is for the development of roles centered around STIG and CIS benchmark baselines. Based on community feedback we'll then proceed with other security guidelines for additional operating systems and applications.
 
-### Mailing List ###
+### Community ###
 Most of the communication around the project happens on the [mailing list](https://groups.google.com/forum/#!forum/ansible-lockdown). That is best way to stay up to date with what is happening with the project.
 
+For faster feedback, there is an `#ansible-lockdown` IRC channel on Freenode.
 
 
 ### Instructions ###
