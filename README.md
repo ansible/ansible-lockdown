@@ -49,13 +49,8 @@ Current Build Statuses for Security Roles
 
 |    Standard  |      OS      |     Repo     |       Galaxy Link        |          Status          |
 | -------------|--------------|--------------|--------------------------|--------------------------|
-|   DISA STIG  |   RedHat 6.* |   [Repo][0]  |  [Galaxy][galaxy-rhel6]  |  [ ![Codeship Status for MindPointGroup/RHEL6-STIG](https://app.codeship.com/projects/6ff25160-95b3-0132-d4fc-466960a0e7d2/status?branch=devel)](https://app.codeship.com/projects/62882)  |
-|   DISA STIG  |   RedHat 7.* |   [Repo][1]  |         TBD              |         TBD              |
-
-**Note:** A green badge represents a successful build which consists of:
-  1. Creating an AWS EC2 instance from the AMI's provided by AWS as defaults.
-  2. Applying the security baseline.
-  3. Using [OpenSCAP][openscap] and [STIGMA][stigma-repo] to further validate the application of the baselines.
+|   DISA STIG  |   RHEL 6 |   [GitHub][0]  |  [RHEL6-STIG][galaxy-rhel6]  |  TBD  |
+|   DISA STIG  |   RHEL 7 |   [GitHub][1]  |         [RHEL7-STIG][galaxy-rhel7]              |         [![Build Status](https://travis-ci.org/MindPointGroup/RHEL7-STIG.svg?branch=devel)](https://travis-ci.org/MindPointGroup/RHEL7-STIG)              |
 
 
 
@@ -68,6 +63,7 @@ Current Build Statuses for Security Roles
 [stigma-repo]:https://github.com/defionscode/STIGMA
 [openscap]:http://www.open-scap.org/page/Main_Page
 [galaxy-rhel6]:https://galaxy.ansible.com/nousdefions/STIG-RHEL6/
+[galaxy-rhel7]:https://galaxy.ansible.com/MindPointGroup/RHEL7-STIG
 [ansible-docs]:http://docs.ansible.com/
 [galaxy-url]:https://galaxy.ansible.com/intro
 
