@@ -1,0 +1,46 @@
+- name: Patch Linux systems against Meltdown and Spectre
+  hosts: "{{ target_hosts | default('all') }}"
+  become: yes
+
+  vars:
+    reboot_after_update: no
+    packages:
+      RedHat7:
+        - kernel-3.10.0-693.11.6.el7
+        - microcode_ctl-2.1-22.2.el7
+        - perf-3.10.0-693.11.6.el7
+        - python-perf-3.10.0-693.11.6.el7
+      RedHat6:
+        - kernel-2.6.32-696.18.7.el6
+        - kernel-firmware-2.6.32-696.18.7.el6
+        - perf-2.6.32-696.18.7.el6
+        - python-perf-2.6.32-696.18.7.el6
+      Debian7: []
+      Debian8: []
+      Debian9: []
+      Ubuntu14: []
+      Ubuntu16: []
+
+  tasks:
+    - name: RHEL | Install kernel updates
+      yum:
+        name: "{{ packages[ansible_os_family ~ ansible_distribution_major_version] }}"
+        state: present
+      when: ansible_pkg_mgr == 'yum'
+      notify: reboot system
+
+    - name: DEBIAN | Install kernel updates
+      apt:
+        name: "{{ packages[ansible_distribution ~ ansible_distribution_major_version] }}"
+        value: prenest
+        update_cache: yes
+      when: ansible_pkg_mgr == 'apt'
+      notify: reboot system
+
+  handlers:
+    - name: reboot system
+      shell: sleep 3; reboot
+      async: 15
+      poll: 0
+      when: reboot_after_update
+

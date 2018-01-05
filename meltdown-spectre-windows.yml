@@ -1,0 +1,31 @@
+- name: Patch Windows systems against Meltdown and Spectre
+  hosts: "{{ target_hosts | default('all') }}"
+
+  vars:
+    reboot_after_update: no
+    registry_keys:
+      - path: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
+        name: FeatureSettingsOverride
+        data: 0
+        type: dword
+
+      - path: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
+        name: FeatureSettingsOverrideMask
+        data: 3
+        type: dword
+
+  tasks:
+    - name: Enable kernel protections
+      win_regedit:
+        path: "{{ item.path }}"
+        name: "{{ item.name }}"
+        data: "{{ item.data }}"
+        type: "{{ item.type }}"
+      with_items: "{{ registry_keys }}"
+
+  handlers:
+    - name: reboot windows system
+      win_reboot:
+        shutdown_timeout: 3600
+        reboot_timeout: 3600
+      when: reboot_after_update

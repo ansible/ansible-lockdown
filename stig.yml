@@ -1,5 +1,5 @@
 - name: Run the appropriate STIG
-  hosts: all
+  hosts: "{{ target_hosts | default('all') }}"
 
   roles:
       - role: RHEL6-STIG
