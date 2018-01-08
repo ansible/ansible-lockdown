@@ -1,20 +1,35 @@
+# https://meltdownattack.com
+# https://support.microsoft.com/en-us/help/4072698/windows-server-guidance-to-protect-against-the-speculative-execution
+
 - name: Patch Windows systems against Meltdown and Spectre
   hosts: "{{ target_hosts | default('all') }}"
 
   vars:
     reboot_after_update: no
     registry_keys:
-      - path: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
+      - path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
         name: FeatureSettingsOverride
         data: 0
         type: dword
 
-      - path: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
+      - path: HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
         name: FeatureSettingsOverrideMask
         data: 3
         type: dword
 
+      # https://support.microsoft.com/en-us/help/4072699
+      - path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat
+        name: cadca5fe-87d3-4b96-b7fb-a231484277cc
+        type: dword
+        data: '0x00000000'
+
   tasks:
+    - name: Install security updates
+      win_updates:
+        category_names:
+          - SecurityUpdates
+      notify: reboot windows system
+
     - name: Enable kernel protections
       win_regedit:
         path: "{{ item.path }}"
