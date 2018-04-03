@@ -3,7 +3,7 @@ Ansible Lockdown
 
 If you're reading this, hopefully you are considering helping out with the Lockdown project.
 
-Herein lies the contribution guidelines for helping out with this project. Do take the guidelines here literally, if you find issue with any of them or you see room for improvement, please let us know via a GitHub issue or via the [Lockdown mailing list][mail].
+Herein lies the contribution guidelines for helping out with this project. Do take the guidelines here literally. If you find issue with any of them or you see room for improvement, please let us know via a GitHub issue or via the [Lockdown mailing list][mail].
 
 ## Rules ##
 
@@ -56,9 +56,8 @@ Module arguments should be indented four spaces.
 
 * There should be a single line break between tasks
 * Every task (except `prelim` tasks) should have, at a minimum and when applicable, the following tags in the following order:
-    * Category level (`cat1`, `cat2`, `cat3`)
-    * Severity level (`high`, `medium`, `low`)
-    * `audit` or `patch` to match the task name
+    * Category level (`cat1`, `cat2`, `cat3`), only in prelim.yml
+    * Severity level (`high`, `medium`, `low`), only in prelim.yml
     * Vulnerability ID number (example, the vulnerability ID number in the case of RHEL6 STIG)
     * Descriptive tags to help with granual execution of tasks
 * Tags should be in multi-line format and indented four spaces just like module arguments above
@@ -113,9 +112,9 @@ Module arguments should be indented four spaces.
 ```
 
 * All fact gathering tasks should:
-    * have `changed_when: no`
-    * have `always_run: yes`
-    * should  include `ignore_errors` when necessary.
+    * have `changed_when: no` unless a needed change has been detected
+    * have `check_mode: no`
+    * should  include `failed_when` to ignore errors when appropriate.
     * register verbose variable names that end with `_audit`
 
 ### Running arbitrary commands ###
