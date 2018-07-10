@@ -7,3 +7,12 @@
 [submodule "RHEL7-CIS"]
 	path = RHEL7-CIS
 	url = https://github.com/MindPointGroup/RHEL7-CIS
+[submodule "Windows-2012-Domain-Controller-STIG"]
+	path = Windows-2012-Domain-Controller-STIG
+	url = git@github.com:MindPointGroup/Windows-2012-Domain-Controller-STIG.git
+[submodule "Windows-2012-Member-Server-STIG"]
+	path = Windows-2012-Member-Server-STIG
+	url = git@github.com:MindPointGroup/Windows-2012-Member-Server-STIG.git
+[submodule "Windows-2008R2-Member-Server-STIG"]
+	path = Windows-2008R2-Member-Server-STIG
+	url = git@github.com:MindPointGroup/Windows-2008R2-Member-Server-STIG.git

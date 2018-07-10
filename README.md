@@ -52,11 +52,17 @@ Current Build Statuses for Security Roles
 | -------------|--------------|--------------|--------------------------|--------------------------|
 |   DISA STIG  |   RHEL 6 |   [GitHub][0]  |  [RHEL6-STIG][galaxy-rhel6]  |  TBD  |
 |   DISA STIG  |   RHEL 7 |   [GitHub][1]  |         [RHEL7-STIG][galaxy-rhel7]              |         [![Build Status](https://travis-ci.org/MindPointGroup/RHEL7-STIG.svg?branch=devel)](https://travis-ci.org/MindPointGroup/RHEL7-STIG)              |
+|   DISA STIG  |   Windows Server 2012 DC |   [GitHub][2]  | TBD   | TBD  |
+|   DISA STIG  |   Windows Server 2012 MS |   [GitHub][3]  | TBD   | TBD  |
+|   DISA STIG  |   Windows Server 2008R2 MS |   [GitHub][4]  | TBD   | TBD  |
 
 
 
 [0]:https://github.com/MindPointGroup/RHEL6-STIG
 [1]:https://github.com/MindPointGroup/RHEL7-STIG
+[2]:https://github.com/MindPointGroup/Windows-2012-Domain-Controller-STIG
+[3]:https://github.com/MindPointGroup/Windows-2012-Member-Server-STIG
+[4]:https://github.com/MindPointGroup/Windows-2008R2-Member-Server-STIG
 [ansible]: http://www.ansible.com/
 [mpg]:https://www.mindpointgroup.com/
 [DISA]:http://iase.disa.mil/stigs/os/unix-linux/Pages/index.aspx
