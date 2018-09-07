@@ -56,9 +56,12 @@ Module arguments should be indented four spaces.
 
 * There should be a single line break between tasks
 * Every task (except `prelim` tasks) should have, at a minimum and when applicable, the following tags in the following order:
-    * Category level (`cat1`, `cat2`, `cat3`), only in prelim.yml
-    * Severity level (`high`, `medium`, `low`), only in prelim.yml
-    * Vulnerability ID number (example, the vulnerability ID number in the case of RHEL6 STIG)
+    * Category level (`cat1`, `cat2`, `cat3`), applied in top level `main.yml` include except for prelim.yml
+    * Severity level (`high`, `medium`, `low`), applied in top level `main.yml` include except for prelim.yml
+    * Vulnerability ID number, STIG ID, or CIS rule number. Examples:
+      * Vulnerability ID number in the case of RHEL6 STIG
+      * STIG ID in case of RHEL7 STIG
+      * Section, chapter, etc style rule number (ex. rule_1.1.1.1) in case of RHEL7 CIS
     * Descriptive tags to help with granual execution of tasks
 * Tags should be in multi-line format and indented four spaces just like module arguments above
 
@@ -104,11 +107,9 @@ Module arguments should be indented four spaces.
 * If multiple standards _must_ be combined into a single task, the name should adhere to the following convention:
 
 ```yml
-- name: |
-
-        MEDIUM | V-38443 | PATCH | The /etc/gshadow file must be owned by root.
-        MEDIUM | V-38448 | PATCH | The /etc/gshadow file must be group-owned by root.
-        MEDIUM | V-38449 | PATCH | The /etc/gshadow file must have mode 0000.
+- name: "MEDIUM | V-38443 | PATCH | The /etc/gshadow file must be owned by root.\n
+         MEDIUM | V-38448 | PATCH | The /etc/gshadow file must be group-owned by root.\n
+         MEDIUM | V-38449 | PATCH | The /etc/gshadow file must have mode 0000.\n"
 ```
 
 * All fact gathering tasks should:
@@ -125,7 +126,5 @@ When using `command`, `shell`, `raw`, or `script`, an appropriate `changed_when`
 
 It is quite common to modify critical system configuration files during the course of security hardening. These include things such as `sudoers`, PAM settings, and `sshd_config`. All these files have the potential to lock you out of the system completely if a syntax error is introduced into the file. When modifying the configuration of critical components such as those listed above, all tasks should use the `validate` parameter to ensure the file is syntactically correct before being put in to place. This will save you from the need to [bake a cake](http://jpmens.net/2013/02/12/sudo-bake-me-a-cake/).
 
-[coc]:http://docs.ansible.com/ansible/community.html#community-code-of-conduct
+[coc]:https://docs.ansible.com/ansible/latest/community/code_of_conduct.html
 [mail]:https://groups.google.com/forum/#!forum/ansible-lockdown
-
-
