@@ -62,7 +62,7 @@ Module arguments should be indented four spaces.
       * Vulnerability ID number in the case of RHEL6 STIG
       * STIG ID in case of RHEL7 STIG
       * Section, chapter, etc style rule number (ex. rule_1.1.1.1) in case of RHEL7 CIS
-    * Descriptive tags to help with granual execution of tasks
+    * Descriptive tags to help with granular execution of tasks
 * Tags should be in multi-line format and indented four spaces just like module arguments above
 
 ```yml
