@@ -1,14 +1,15 @@
-# Ansible Lockdown
+# Archived: Ansible Lockdown
 
-## Brought to you by [MindPoint Group][mpg]
+Brought to you by [MindPoint Group][mpg]
 
-## For the latest content and wider set of baselines this has been moved to:
+This content is no longer maintained.
 
-- ### [Lockdown Enterprise][lockdown]
+For the latest content and wider set of baselines, see :
 
-- ### [Repositories][repos]
+- [Lockdown Enterprise][lockdown]
+- [github.com/ansible-lockdown][repos]
 
-## Join us
+## Join the discussion
 
 On our [Discord Server](https://discord.io/ansible-lockdown) to ask questions, discuss features, or just chat with other Ansible-Lockdown users
 
