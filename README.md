@@ -4,7 +4,7 @@ Brought to you by [MindPoint Group][mpg]
 
 This content is no longer maintained.
 
-For the latest content and wider set of baselines, see :
+For the latest content and wider set of baselines, see:
 
 - [Lockdown Enterprise][lockdown]
 - [github.com/ansible-lockdown][repos]
