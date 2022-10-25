@@ -13,7 +13,7 @@
 On our [Discord Server](https://discord.io/ansible-lockdown) to ask questions, discuss features, or just chat with other Ansible-Lockdown users
 
 <a href="http://www.lockdownenterprise.com">
-<img src="images/LEBlue.svg" alt="http://www.lockdownenterprise.com" style="height: 200px; width: 200px; float: left;"/>
+<img src="images/LockdownEnterprise.svg" alt="http://www.lockdownenterprise.com" style="height: 200px; width: 200px; float: left;"/>
 </a>
 <a href="https://www.mindpointgroup.com/">
 <img src="images/MPG-logo-mono-blue.svg" alt="https://www.mindpointgroup.com" style="height: 200px; width: 200px; float: right;"/>
